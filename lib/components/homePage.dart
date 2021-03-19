@@ -32,6 +32,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Weathercast"),
         centerTitle: true,
@@ -45,7 +46,8 @@ class HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
-          WeatherCard(title: _desc, temperature: _temp, iconCode: _icon),
+          // WeatherCard(title: _desc, temperature: _temp, iconCode: _icon),
+          WeatherCard(title: _desc, temperature: _temp, iconCode: _icon)
         ],
       ),
     );
@@ -66,7 +68,11 @@ class HomePageState extends State<HomePage> {
     List<Placemark> p = await _geolocator.placemarkFromCoordinates(
         _position.latitude, _position.longitude);
     Placemark place = p[0];
-    print(jsonEncode(place));
+    // print(jsonEncode(place));
+
+    var data = await _weatherFetch.getWeatherByCoord(
+        _position.latitude, _position.longitude);
+    updateData(data);
 
     setState(() {
       _city = place.locality;
@@ -77,6 +83,7 @@ class HomePageState extends State<HomePage> {
     try {
       var data = await _weatherFetch.getWeatherByName(city);
       updateData(data);
+      // print(data);
       setState(() {
         _city = city;
       });
@@ -89,7 +96,7 @@ class HomePageState extends State<HomePage> {
   void updateData(weatherData) {
     setState(() {
       if (weatherData != null) {
-        debugPrint(jsonEncode(weatherData));
+        // debugPrint(jsonEncode(weatherData));
         //{"temp":10.49,"feels_like":5.54,"temp_min":10,"temp_max":11,"pressure":1009,"humidity":61}
         _temp = weatherData['main']['temp'].toInt();
         _icon = weatherData['weather'][0]['icon'];
