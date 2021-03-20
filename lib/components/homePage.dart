@@ -45,7 +45,10 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Weathercast"),
+        title: Text(
+          "Weathercast",
+          style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 24),
+        ),
         centerTitle: true,
       ),
       body: debug

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'components/homePage.dart';
+import 'components/my_theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,9 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weathercast demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme: myTheme(),
       home: HomePage(),
     );
   }

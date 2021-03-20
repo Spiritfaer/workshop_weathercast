@@ -11,16 +11,6 @@ class BigWeatherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final String image =
         "http://openweathermap.org/img/wn/${this.iconCode}@4x.png";
-    TextStyle _styleDesc = TextStyle(
-      fontSize: 24,
-      color: Colors.white,
-      fontWeight: FontWeight.w200,
-    );
-    TextStyle _styleTemp = TextStyle(
-      fontSize: 36,
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-    );
 
     return Container(
       alignment: Alignment.bottomCenter,
@@ -45,14 +35,14 @@ class BigWeatherCard extends StatelessWidget {
                   margin: EdgeInsets.all(3),
                   child: Text(
                     "${weatherDes[0].toUpperCase()}${weatherDes.substring(1)}",
-                    style: _styleDesc,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 5),
                   child: Text(
                     "$temperature °C",
-                    style: _styleTemp,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],

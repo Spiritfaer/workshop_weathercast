@@ -28,8 +28,9 @@ class AdditionalWeatherInfo extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BoxedIcon(
-                    WeatherIcons.humidity,
+                    WeatherIcons.raindrops,
                     color: Colors.white,
+                    size: 40,
                   ),
                   Text(
                     "$humidity %",
