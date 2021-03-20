@@ -7,6 +7,7 @@ import '../components/searchForm.dart';
 import '../components/weatherCard.dart';
 
 import '../components/big_weather_card.dart';
+import '../components/additional_weather_info.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -48,10 +49,18 @@ class HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: debug
-          ? BigWeatherCard(
-              iconCode: _icon,
-              temperature: _temp,
-              weatherDes: _description,
+          ? Column(
+              children: [
+                BigWeatherCard(
+                  iconCode: _icon,
+                  temperature: _temp,
+                  weatherDes: _description,
+                ),
+                AdditionalWeatherInfo(
+                  pressure: _pressure,
+                  humidity: _humidity,
+                ),
+              ],
             )
           : Column(
               children: [
