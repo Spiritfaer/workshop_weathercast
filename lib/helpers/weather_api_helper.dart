@@ -7,7 +7,7 @@ String getWeatherIconBigRequest(iconCode) =>
 String getWeatherIconMediumRequest(iconCode) =>
     "http://openweathermap.org/img/wn/$iconCode@2x.png";
 
-String getWeatherIconSmallgRequest(iconCode) =>
+String getWeatherIconSmallRequest(iconCode) =>
     "http://openweathermap.org/img/wn/$iconCode.png";
 
 String getWeatherByCoordRequest(lat, lon) =>

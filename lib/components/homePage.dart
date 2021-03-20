@@ -7,7 +7,9 @@ import '../components/searchForm.dart';
 import '../components/weatherCard.dart';
 
 import '../components/big_weather_card.dart';
+import '../components/small_weather_card.dart';
 import '../components/additional_weather_info.dart';
+import '../components/weather_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -63,6 +65,7 @@ class HomePageState extends State<HomePage> {
                   pressure: _pressure,
                   humidity: _humidity,
                 ),
+                WeatherBar(),
               ],
             )
           : Column(

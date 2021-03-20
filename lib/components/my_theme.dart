@@ -10,7 +10,7 @@ ThemeData myTheme() => ThemeData(
           fontWeight: FontWeight.bold,
         ),
         bodyText2: TextStyle(
-          fontSize: 24,
+          fontSize: 20,
           color: Colors.white,
           fontWeight: FontWeight.w200,
         ),

@@ -11,13 +11,36 @@ class SmallWeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned(top: 0, child: Text("SAT")),
-        Image.network(getWeatherIconMediumRequest(iconCode)),
-        Positioned(bottom: 0, child: Text("30 °C")),
-      ],
+    return Container(
+      height: 90,
+      width: 65,
+      color: Colors.green,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+              top: 0,
+              child: Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Text(
+                  day,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              )),
+          Image.network(getWeatherIconSmallRequest(iconCode)),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              padding: EdgeInsets.only(bottom: 5),
+              child: Text(
+                "$temperature °C",
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: Theme.of(context).textTheme.bodyText2.fontSize),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
