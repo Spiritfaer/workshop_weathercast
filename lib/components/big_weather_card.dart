@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../helpers/weather_api_helper.dart';
+
 class BigWeatherCard extends StatelessWidget {
   final iconCode;
   final String weatherDes;
@@ -9,9 +11,6 @@ class BigWeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String image =
-        "http://openweathermap.org/img/wn/${this.iconCode}@4x.png";
-
     return Container(
       alignment: Alignment.bottomCenter,
       constraints: BoxConstraints(
@@ -24,7 +23,7 @@ class BigWeatherCard extends StatelessWidget {
         children: [
           Positioned(
             top: -25,
-            child: Image.network(image),
+            child: Image.network(getWeatherIconBigRequest(iconCode)),
           ),
           Positioned(
             bottom: 0,
