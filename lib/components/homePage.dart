@@ -6,6 +6,8 @@ import '../helpers/weather.dart';
 import '../components/searchForm.dart';
 import '../components/weatherCard.dart';
 
+import '../components/big_weather_card.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => HomePageState();
@@ -17,14 +19,22 @@ class HomePageState extends State<HomePage> {
   String _city;
   String _icon;
   String _desc;
+  String _description;
+  int _pressure;
+  int _humidity;
   int _temp;
   WeatherFetch _weatherFetch = WeatherFetch();
+
+  final bool debug = true;
 
   @override
   void initState() {
     _city = "Empty";
     _temp = 0;
     _icon = "04n";
+    _description = "empty";
+    _pressure = 0;
+    _humidity = 0;
     super.initState();
     _getCurrent();
   }
@@ -37,19 +47,24 @@ class HomePageState extends State<HomePage> {
         title: Text("Weathercast"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Search(_changeCity),
-          Center(
-            child: Text(
-              "$_city",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+      body: debug
+          ? BigWeatherCard(
+              iconCode: _icon,
+              temperature: _temp,
+              weatherDes: _description,
+            )
+          : Column(
+              children: [
+                Search(_changeCity),
+                Center(
+                  child: Text(
+                    "$_city",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                WeatherCard(title: _desc, temperature: _temp, iconCode: _icon)
+              ],
             ),
-          ),
-          // WeatherCard(title: _desc, temperature: _temp, iconCode: _icon),
-          WeatherCard(title: _desc, temperature: _temp, iconCode: _icon)
-        ],
-      ),
     );
   }
 
@@ -102,7 +117,12 @@ class HomePageState extends State<HomePage> {
         _icon = weatherData['weather'][0]['icon'];
         _desc = weatherData['main']['feels_like'].toString();
         // _color = _getBackgroudColor(_temp);
+
+        _description = weatherData['weather'][0]['description'].toString();
+        _pressure = weatherData['main']['pressure'].toInt();
+        _humidity = weatherData['main']['humidity'].toInt();
       } else {
+        //TODO add wait animation
         _temp = 0;
         _city = "In the middle of nowhere";
         _icon = "04n";
