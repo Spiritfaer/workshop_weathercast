@@ -7,6 +7,7 @@ class FetchHelper {
 
   Future<dynamic> getData() async {
     Response response = await get(url);
+    // print("$url => ${response.statusCode}");
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {

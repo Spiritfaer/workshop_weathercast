@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../helpers/weather_api_helper.dart';
 
 class SmallWeatherCard extends StatelessWidget {

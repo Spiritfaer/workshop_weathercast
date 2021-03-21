@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './small_weather_card.dart';
-import '../helpers/weather_api_helper.dart';
 
 class WeatherBar extends StatelessWidget {
-  // final Map<String, dynamic> weatherMap;
+  final List<Map<String, dynamic>> weatherMap;
   final List<Map<String, dynamic>> demoWeatherMap = [
     {'day': 'SAT', 'icon': '04n', 'temp': '0'},
     {'day': 'SUN', 'icon': '04n', 'temp': '1'},
@@ -13,17 +13,15 @@ class WeatherBar extends StatelessWidget {
     {'day': 'WED', 'icon': '04n', 'temp': '8'},
   ];
 
-  // WeatherBar({this.weatherMap});
-  WeatherBar();
+  WeatherBar({this.weatherMap});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: demoWeatherMap
-          .map((e) => SmallWeatherCard(
-              day: e['day'], iconCode: e['icon'], temperature: e['temp']))
-          .toList(),
-    );
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: (weatherMap ?? demoWeatherMap)
+            .map((e) => SmallWeatherCard(
+                day: e['day'], iconCode: e['icon'], temperature: e['temp']))
+            .toList());
   }
 }
