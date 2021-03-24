@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../helpers/weather.dart';
-import '../components/searchForm.dart';
-import '../components/weatherCard.dart';
-import '../components/big_weather_card.dart';
-import '../components/additional_weather_info.dart';
-import '../components/weather_bar.dart';
-import '../components/my_bg_widget.dart';
+import 'search_form.dart';
+import 'weather_card.dart';
+import 'big_weather_card.dart';
+import 'additional_weather_info.dart';
+import 'weather_bar.dart';
+import 'my_bg_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -72,22 +72,48 @@ class HomePageState extends State<HomePage> {
               WeatherBar(weatherMap: _weatherList),
             ],
           ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: FloatingActionButton(
+                onPressed: () {
+                  _city = 'Refresh';
+                  _getCurrent();
+                },
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                shape: CircleBorder(
+                    side: BorderSide(width: 2, color: Colors.white)),
+                child: Icon(
+                  Icons.location_city,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              child: FloatingActionButton(
+                onPressed: () {
+                  _city = 'Refresh';
+                  _getCurrent();
+                },
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                shape: CircleBorder(
+                    side: BorderSide(width: 2, color: Colors.white)),
+                child: Icon(
+                  Icons.location_city,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _city = 'Refresh';
-          _getCurrent();
-        },
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        shape: CircleBorder(side: BorderSide(width: 2, color: Colors.white)),
-        child: Icon(
-          Icons.location_city,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -170,8 +196,11 @@ class HomePageState extends State<HomePage> {
             'icon':
                 weatherData['daily'][i + 1]['weather'][0]['icon'].toString(),
             // 'temp': weatherData['daily'][i]['temp']['day'].toString(),
-            'temp': double.parse(
+            'tempDay': double.parse(
                     weatherData['daily'][i + 1]['temp']['day'].toString())
+                .round(),
+            'tempNight': double.parse(
+                    weatherData['daily'][i + 1]['temp']['night'].toString())
                 .round()
           };
         },
