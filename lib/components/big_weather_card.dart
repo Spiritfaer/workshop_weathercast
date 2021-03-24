@@ -17,7 +17,6 @@ class BigWeatherCard extends StatelessWidget {
         maxWidth: double.infinity,
         maxHeight: MediaQuery.of(context).size.height / 3,
       ),
-      decoration: BoxDecoration(color: Colors.blue),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [

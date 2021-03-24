@@ -13,7 +13,6 @@ class SmallWeatherCard extends StatelessWidget {
     return Container(
       height: 90,
       width: 65,
-      color: Colors.green,
       child: Stack(
         alignment: Alignment.center,
         children: [

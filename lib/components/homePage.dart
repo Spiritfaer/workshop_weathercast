@@ -8,6 +8,7 @@ import '../components/weatherCard.dart';
 import '../components/big_weather_card.dart';
 import '../components/additional_weather_info.dart';
 import '../components/weather_bar.dart';
+import '../components/my_bg_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,11 +29,9 @@ class HomePageState extends State<HomePage> {
 
   WeatherFetch _weatherFetch = WeatherFetch();
 
-  final bool debug = true;
-
   @override
   void initState() {
-    _city = "Empty";
+    _city;
     _temp = 0;
     _icon = "04n";
     _description = "empty";
@@ -48,38 +47,47 @@ class HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "Weathercast",
+          _city ?? "Weathercast",
           style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 24),
         ),
         centerTitle: true,
       ),
-      body: debug
-          ? Column(
-              children: [
-                BigWeatherCard(
-                  iconCode: _icon,
-                  temperature: _temp,
-                  weatherDes: _description,
-                ),
-                AdditionalWeatherInfo(
-                  pressure: _pressure,
-                  humidity: _humidity,
-                ),
-                WeatherBar(weatherMap: _weatherList),
-              ],
-            )
-          : Column(
-              children: [
-                Search(_changeCity),
-                Center(
-                  child: Text(
-                    "$_city",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                WeatherCard(title: _desc, temperature: _temp, iconCode: _icon)
-              ],
-            ),
+      body: Stack(
+        children: [
+          MyBgWidget(),
+          Column(
+            children: [
+              BigWeatherCard(
+                iconCode: _icon,
+                temperature: _temp,
+                weatherDes: _description,
+              ),
+              AdditionalWeatherInfo(
+                pressure: _pressure,
+                humidity: _humidity,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              WeatherBar(weatherMap: _weatherList),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _city = 'Refresh';
+          _getCurrent();
+        },
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        shape: CircleBorder(side: BorderSide(width: 2, color: Colors.white)),
+        child: Icon(
+          Icons.location_city,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -157,10 +165,14 @@ class HomePageState extends State<HomePage> {
         5,
         (i) {
           return {
-            'day': DateFormat.E()
-                .format(DateTime(weatherData['daily'][i]['dt'].toInt())),
-            'icon': weatherData['daily'][i]['weather'][0]['icon'].toString(),
-            'temp': weatherData['daily'][i]['temp']['day'].toString(),
+            'day': DateFormat.E().format(DateTime.fromMillisecondsSinceEpoch(
+                weatherData['daily'][i + 1]['dt'].toInt() * 1000)),
+            'icon':
+                weatherData['daily'][i + 1]['weather'][0]['icon'].toString(),
+            // 'temp': weatherData['daily'][i]['temp']['day'].toString(),
+            'temp': double.parse(
+                    weatherData['daily'][i + 1]['temp']['day'].toString())
+                .round()
           };
         },
       );

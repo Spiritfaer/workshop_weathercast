@@ -9,15 +9,8 @@ class AdditionalWeatherInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _styleDesc = TextStyle(
-      fontSize: 24,
-      color: Colors.white,
-      fontWeight: FontWeight.w200,
-    );
-
     return Container(
       height: 50,
-      color: Colors.blue,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -34,7 +27,7 @@ class AdditionalWeatherInfo extends StatelessWidget {
                   ),
                   Text(
                     "$humidity %",
-                    style: _styleDesc,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
               ),
@@ -50,10 +43,8 @@ class AdditionalWeatherInfo extends StatelessWidget {
                   WeatherIcons.thermometer,
                   color: Colors.white,
                 ),
-                Text(
-                  "$pressure hpa",
-                  style: _styleDesc,
-                ),
+                Text("$pressure hpa",
+                    style: Theme.of(context).textTheme.bodyText2),
               ],
             ),
           )),
