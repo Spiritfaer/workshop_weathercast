@@ -23,7 +23,7 @@ class WeatherBar extends StatelessWidget {
                 day: e['day'],
                 iconCode: e['icon'],
                 temperatureDay: e['tempDay'],
-                temperatureNight: (e['tempNight'] ?? e['tempDay'])))
+                temperatureNight: (e['tempNight'])))
             .toList());
   }
 }

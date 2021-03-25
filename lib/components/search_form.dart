@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class Search extends StatefulWidget {
   final Function(String) parentCallback;
-  Search(this.parentCallback);
+  Search({this.parentCallback});
 
   @override
   _SearchState createState() => _SearchState();
@@ -49,13 +48,18 @@ class _SearchState extends State<Search> {
                       controller: cityController,
                       decoration:
                           InputDecoration.collapsed(hintText: "Enter City"),
-                      onSubmitted: (String city) =>
-                          {widget.parentCallback(city)})),
+                      onSubmitted: (String city) {
+                        print("New city $city");
+                        widget.parentCallback(city);
+                        Navigator.pop(context);
+                      })),
               IconButton(
                 icon: new Icon(Icons.check),
                 color: Colors.green,
                 onPressed: () {
+                  print("New city ${cityController.text}");
                   widget.parentCallback(cityController.text);
+                  Navigator.pop(context);
                 },
               )
             ]));

@@ -21,6 +21,3 @@ String getWeatherByNameRequest(cityName) =>
 
 String getWeatherByCoordRequestAllInOne(lat, lon) =>
     "$weatherMapURLAllInOne?lat=$lat&lon=$lon&appid=$openWeatherMapKey&units=metric";
-
-String getWeatherByNameRequestAllInOne(cityName) =>
-    "$weatherMapURLAllInOne?q=$cityName&appid=$openWeatherMapKey&units=metric";

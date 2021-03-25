@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 
 import '../helpers/weather.dart';
 import 'search_form.dart';
-import 'weather_card.dart';
 import 'big_weather_card.dart';
 import 'additional_weather_info.dart';
 import 'weather_bar.dart';
@@ -39,6 +38,24 @@ class HomePageState extends State<HomePage> {
     _humidity = 0;
     super.initState();
     _getCurrent();
+  }
+
+  void _startFindCity(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: 200,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Search(
+                  parentCallback: _changeCity,
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -86,7 +103,7 @@ class HomePageState extends State<HomePage> {
                 shape: CircleBorder(
                     side: BorderSide(width: 2, color: Colors.white)),
                 child: Icon(
-                  Icons.location_city,
+                  Icons.my_location,
                   color: Colors.white,
                 ),
               ),
@@ -97,19 +114,25 @@ class HomePageState extends State<HomePage> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: FloatingActionButton(
-                onPressed: () {
-                  _city = 'Refresh';
-                  _getCurrent();
-                },
+                onPressed: () => _startFindCity(context),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
                 shape: CircleBorder(
                     side: BorderSide(width: 2, color: Colors.white)),
                 child: Icon(
-                  Icons.location_city,
+                  Icons.search,
                   color: Colors.white,
                 ),
               ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              child: Icon(Icons.refresh),
+              onPressed: () {
+                _getFutureWeather();
+              },
             ),
           ),
         ],
@@ -143,7 +166,7 @@ class HomePageState extends State<HomePage> {
     });
   }
 
-  _getFutureWeather() async {
+  void _getFutureWeather() async {
     var data = await _weatherFetch.getWeatherByCoordAllInOne(
         _position.latitude, _position.longitude);
     updateFutureWeatherData(data);
@@ -154,6 +177,9 @@ class HomePageState extends State<HomePage> {
     try {
       var data = await _weatherFetch.getWeatherByName(city);
       updateCurrentWeatherData(data);
+      data = await _weatherFetch.getWeatherByCoordAllInOne(
+          data['coord']['lat'], data['coord']['lon']);
+      updateFutureWeatherData(data);
       setState(() {
         _city = city;
       });
@@ -195,7 +221,6 @@ class HomePageState extends State<HomePage> {
                 weatherData['daily'][i + 1]['dt'].toInt() * 1000)),
             'icon':
                 weatherData['daily'][i + 1]['weather'][0]['icon'].toString(),
-            // 'temp': weatherData['daily'][i]['temp']['day'].toString(),
             'tempDay': double.parse(
                     weatherData['daily'][i + 1]['temp']['day'].toString())
                 .round(),

@@ -20,11 +20,4 @@ class WeatherFetch {
     dynamic decodedData = await fetchData.getData();
     return decodedData;
   }
-
-  Future<dynamic> getWetherByNameAllInOne(String cityName) async {
-    FetchHelper fetchData =
-        FetchHelper(getWeatherByNameRequestAllInOne(cityName));
-    dynamic decodedData = await fetchData.getData();
-    return decodedData;
-  }
 }
