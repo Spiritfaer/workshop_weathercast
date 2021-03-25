@@ -43,11 +43,13 @@ class HomePageState extends State<HomePage> {
   void _startFindCity(BuildContext context) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (builder) {
           return Container(
-            height: 200,
-            color: Colors.white,
+            color: Colors.transparent,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Search(
                   parentCallback: _changeCity,
@@ -124,15 +126,6 @@ class HomePageState extends State<HomePage> {
                   color: Colors.white,
                 ),
               ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              child: Icon(Icons.refresh),
-              onPressed: () {
-                _getFutureWeather();
-              },
             ),
           ),
         ],
