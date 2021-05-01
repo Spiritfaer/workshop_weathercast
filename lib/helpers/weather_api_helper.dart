@@ -5,13 +5,13 @@ const String weatherMapURLAllInOne =
 const openWeatherMapKey = "6311ebe8a26de4e3e58fa0a38fb75f79";
 
 String getWeatherIconBigRequest(iconCode) =>
-    "http://openweathermap.org/img/wn/$iconCode@4x.png";
+    "https://openweathermap.org/img/wn/$iconCode@4x.png";
 
 String getWeatherIconMediumRequest(iconCode) =>
-    "http://openweathermap.org/img/wn/$iconCode@2x.png";
+    "https://openweathermap.org/img/wn/$iconCode@2x.png";
 
 String getWeatherIconSmallRequest(iconCode) =>
-    "http://openweathermap.org/img/wn/$iconCode.png";
+    "https://openweathermap.org/img/wn/$iconCode.png";
 
 String getWeatherByCoordRequest(lat, lon) =>
     "$weatherMapURL?lat=$lat&lon=$lon&appid=$openWeatherMapKey&units=metric";
